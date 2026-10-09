@@ -1,0 +1,13 @@
+.next
+.next-netlify
+node_modules
+.env
+.env.local
+.env.*
+!.env.example
+*.tsbuildinfo
+.vercel
+.netlify
+coverage
+dist
+*.log

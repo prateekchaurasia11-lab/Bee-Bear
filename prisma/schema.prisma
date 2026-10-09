@@ -1,0 +1,182 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum OrderStatus {
+  CREATED
+  PAYMENT_PENDING
+  PAYMENT_VERIFIED
+  PACKED
+  SHIPPED
+  DELIVERED
+  CANCELLED
+  REFUNDED
+}
+
+enum PaymentStatus {
+  CREATED
+  AUTHORIZED
+  CAPTURED
+  FAILED
+  REFUNDED
+  DUPLICATE
+}
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  name         String
+  passwordHash String?
+  isAdmin      Boolean   @default(false)
+  mfaEnabled   Boolean   @default(false)
+  addresses    Address[]
+  orders       Order[]
+  auditLogs    AuditLog[]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Address {
+  id           String   @id @default(cuid())
+  userId       String?
+  user         User?    @relation(fields: [userId], references: [id])
+  fullName     String
+  mobile       String
+  email        String
+  house        String
+  building     String
+  street       String
+  landmark     String?
+  city         String
+  state        String
+  pincode      String
+  instructions String?
+  createdAt    DateTime @default(now())
+}
+
+model Product {
+  id          String           @id @default(cuid())
+  slug        String           @unique
+  name        String
+  category    String
+  collection  String
+  description String
+  care        String
+  price       Int
+  mrp         Int?
+  active      Boolean          @default(true)
+  images      ProductImage[]
+  variants    ProductVariant[]
+  orderItems  OrderItem[]
+  reviews     Review[]
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+}
+
+model ProductImage {
+  id        String  @id @default(cuid())
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  url       String
+  alt       String
+  position  Int     @default(0)
+}
+
+model ProductVariant {
+  id        String  @id @default(cuid())
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  size      String
+  colour    String
+  sku       String  @unique
+  inventory Int
+}
+
+model Order {
+  id              String       @id
+  userId          String?
+  user            User?        @relation(fields: [userId], references: [id])
+  status          OrderStatus  @default(CREATED)
+  subtotal        Int
+  shipping        Int
+  total           Int
+  currency        String       @default("INR")
+  razorpayOrderId String?      @unique
+  addressId       String?
+  items           OrderItem[]
+  payments        Payment[]
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  sku       String
+  quantity  Int
+  unitPrice Int
+  lineTotal Int
+}
+
+model Payment {
+  id                String        @id @default(cuid())
+  orderId           String
+  order             Order         @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  razorpayPaymentId String        @unique
+  status            PaymentStatus
+  amount            Int
+  currency          String        @default("INR")
+  rawEventId        String?
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+}
+
+model WebhookEvent {
+  id         String   @id
+  source     String
+  eventType  String
+  payload    Json
+  receivedAt DateTime @default(now())
+  processedAt DateTime?
+}
+
+model Coupon {
+  id        String   @id @default(cuid())
+  code      String   @unique
+  active    Boolean  @default(true)
+  amountOff Int?
+  percentOff Int?
+  startsAt  DateTime?
+  endsAt    DateTime?
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  rating    Int
+  title     String
+  body      String
+  verified  Boolean  @default(false)
+  published Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  actorId   String?
+  actor     User?    @relation(fields: [actorId], references: [id])
+  action    String
+  entity    String
+  entityId  String
+  metadata  Json?
+  createdAt DateTime @default(now())
+}
