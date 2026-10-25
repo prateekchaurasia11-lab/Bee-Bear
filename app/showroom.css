@@ -91,12 +91,6 @@
 .category-filters { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin: 0 0 30px; }
 .category-filters button { min-height: 44px; border: 1px solid #aa9fb5; border-radius: 999px; background: transparent; padding: 9px 22px; color: #5d506a; font-size: .85rem; transition: background .2s, color .2s; }
 .category-filters button[aria-pressed="true"] { border-color: var(--showroom-ink); background: var(--showroom-ink); color: white; }
-.catalogue-tools { display: grid; grid-template-columns: minmax(220px, 1.4fr) repeat(3, minmax(120px, .65fr)); align-items: end; gap: 14px; padding: 20px; background: white; border: 1px solid var(--line); border-radius: 14px; }
-.catalogue-tools label { min-width: 0; display: grid; gap: 7px; color: #5f526c; font-size: .75rem; }
-.catalogue-tools select { width: 100%; min-height: 44px; padding: 8px 10px; border: 1px solid #9f92aa; border-radius: 7px; background: #fffdf9; color: var(--showroom-ink); font-size: .82rem; }
-.catalogue-tools .catalogue-search { display: flex; align-items: center; min-height: 44px; border: 1px solid #9f92aa; border-radius: 7px; padding: 0 12px; gap: 8px; }
-.catalogue-search input { width: 100%; min-height: 42px; border: 0; background: transparent; font-size: .82rem; }
-.catalogue-search input::placeholder { color: #6b6073; opacity: 1; }
 .catalogue-results { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; min-height: 48px; margin-bottom: 20px; font-size: .77rem; }
 .catalogue-results p { margin: 0; }
 .catalogue-results p span { color: #6b5a75; }
@@ -201,8 +195,6 @@
   .category-photo { min-height: 170px; }
   .category-filters { gap: 8px; margin-bottom: 22px; }
   .category-filters button { padding: 8px 16px; font-size: .76rem; }
-  .catalogue-tools { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 14px; gap: 12px; }
-  .catalogue-tools .catalogue-search { grid-column: 1 / -1; }
   .catalogue-helper { display: none; }
   .catalogue-results { margin-bottom: 14px; font-size: .68rem; gap: 10px; }
   .product-grid.showroom-grid, .product-grid.single-product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 12px; }

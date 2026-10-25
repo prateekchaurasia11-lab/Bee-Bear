@@ -107,3 +107,7 @@ public/       Static assets and expected product-photo paths
 scripts/      Database seed script
 tests/        Checkout and configuration tests
 ```
+
+## Development approach
+
+Project coding guidance in [AGENTS.md](AGENTS.md) follows [Ponytail](https://github.com/DietrichGebert/ponytail): small complete changes, reuse of existing code, and preservation of privacy, payment validation and accessibility. The Codex skill is installed separately from the storefront.

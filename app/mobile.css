@@ -63,10 +63,6 @@
   .category-explore { min-height: 36px; margin-top: 6px; }
   .category-filters { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-bottom: 18px; }
   .category-filters button { min-height: 44px; font-size: .8rem; padding: 9px; }
-  .catalogue-tools { gap: 14px 12px; padding: 14px; }
-  .catalogue-search input, .catalogue-tools select { font-size: 16px; min-height: 48px; }
-  .catalogue-tools label { font-size: .76rem; }
-  .catalogue-tools > label:last-child { grid-column: 1 / -1; }
   .catalogue-results { margin-bottom: 14px; min-height: 44px; font-size: .74rem; gap: 6px; }
   .catalogue-results > button { min-height: 44px; margin-left: auto; }
   .product-grid.showroom-grid, .product-grid.single-product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 12px; }
