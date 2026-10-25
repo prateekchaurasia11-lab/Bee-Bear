@@ -4,8 +4,8 @@
 
 Project: https://app.netlify.com/projects/bee-and-bear-prateek
 Website: https://bee-and-bear-prateek.netlify.app
-Latest deployment: https://app.netlify.com/projects/bee-and-bear-prateek/deploys/6ade576586b6416d3980d8d1
-Deployment-specific URL: https://6ade576586b6416d3980d8d1--bee-and-bear-prateek.netlify.app
+Latest deployment: https://app.netlify.com/projects/bee-and-bear-prateek/deploys/6ade5c70666292c28f328711
+Deployment-specific URL: https://6ade5c70666292c28f328711--bee-and-bear-prateek.netlify.app
 
 The existing site now includes the six-link navigation (Home, Shop, Blog, Our Quality, Contact Us, About Us), working Blog/Our Quality pages, scroll entrances and a reading-progress bar, plus a six-banner animated showroom and 23 separate demo product cards,
 with a whole-collection banner, supplied logo/photos, four matching product-in-scene lifestyle photographs, an animated navy wave/sketch footer, dedicated policies,

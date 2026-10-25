@@ -61,3 +61,6 @@ Phone header/slideshow, two-column product grid, touch controls, filters, produc
 
 ## Catalogue toolbar removal - 26 October 2026
 Removed the search, type, diaper-size and sorting toolbar on all screen sizes, together with its unused state. Category buttons, all 23 product cards and slideshow links to specific ranges remain working. Changed-file ESLint and production build passed. Browser checks at 390px and 1440px confirmed the toolbar is absent, Wipes returns three products, the Overnight range link returns four products and there is no horizontal overflow. Production deploy 6ade576586b6416d3980d8d1 is live; existing site access/settings retained.
+
+## Ponytail adoption - 26 October 2026
+Installed the official Ponytail skill at upstream revision 09c434ab73ca43761c5d8b0c5d341926c2fba710 and added pinned project guidance to AGENTS.md. Applied it by removing 12 unused catalogue-toolbar style rules. Existing tests and ESLint passed; the cleanup production build and 390px/1440px catalogue checks passed. Application commit: 64eecbcaf59a6f1151f2d612c530dbebb07e3b43. Netlify deploy 6ade5c70666292c28f328711 is live. Verification covered the build and catalogue flow; broader refactoring was outside this cleanup.
