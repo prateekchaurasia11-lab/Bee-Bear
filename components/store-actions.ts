@@ -1,6 +1,6 @@
 'use client'
 
-import { products } from '@/lib/products'
+import { migrateCartProductId, products } from '@/lib/products'
 
 type CartItem = {
   productId: string
@@ -55,7 +55,10 @@ export function readCart() {
   try {
     const stored: unknown = JSON.parse(window.localStorage.getItem('bb-cart') || '[]')
     if (!Array.isArray(stored)) return [] as CartItem[]
-    return stored.filter((item): item is CartItem => {
+    return stored.map(item => item && typeof item === 'object' ? {
+      productId: migrateCartProductId(item.productId, item.size),
+      quantity: item.quantity, size: item.size, colour: item.colour,
+    } : null).filter((item): item is CartItem => {
       if (!item || typeof item !== 'object') return false
       const product = products.find((product) => product.id === item.productId)
       return Boolean(product && Number.isInteger(item.quantity) && item.quantity > 0 && item.quantity <= Math.min(10, product.inventory) && product.sizes.includes(item.size) && product.colours.includes(item.colour))

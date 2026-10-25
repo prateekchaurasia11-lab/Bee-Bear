@@ -4,6 +4,8 @@ type StoredOrder = {
   amount: number
   currency: 'INR'
   status: 'created' | 'verified' | 'failed'
+  termsVersion: string
+  termsAcceptedAt: string
   createdAt: string
 }
 

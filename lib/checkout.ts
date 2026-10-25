@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import { products } from './products'
+import { policyVersion } from './policies'
 
 export const addressSchema = z.object({
   fullName: z.string().trim().min(2).max(80),
@@ -16,17 +17,17 @@ export const addressSchema = z.object({
   saveAddress: z.boolean().optional().default(false),
 })
 
-export const cartItemSchema = z.object({
+export const cartItemSchema = z.strictObject({
   productId: z.string().min(1),
   quantity: z.number().int().min(1).max(10),
   size: z.string().min(1),
   colour: z.string().min(1),
 })
 
-export const checkoutSchema = z.object({
-  items: z.array(cartItemSchema).min(1),
-  address: addressSchema,
-  couponCode: z.string().trim().max(32).optional(),
+export const checkoutSchema = z.strictObject({
+  items: z.array(cartItemSchema).min(1).max(50),
+  termsAccepted: z.literal(true),
+  policyVersion: z.literal(policyVersion),
 })
 
 export type CheckoutPayload = z.infer<typeof checkoutSchema>

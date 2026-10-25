@@ -1,14 +1,14 @@
 import { NextResponse } from 'next/server'
 import Razorpay from 'razorpay'
+import { ZodError } from 'zod'
 import { checkoutSchema, calculateTotals } from '@/lib/checkout'
 import { createInternalOrder } from '@/lib/order-store'
 import { requireRazorpayTestMode } from '@/lib/razorpay'
 
 export async function POST(request: Request) {
   try {
-    requireRazorpayTestMode()
-
     const payload = checkoutSchema.parse(await request.json())
+    requireRazorpayTestMode()
     const totals = calculateTotals(payload.items)
     const razorpay = new Razorpay({
       key_id: process.env.RAZORPAY_KEY_ID!,
@@ -31,6 +31,8 @@ export async function POST(request: Request) {
       razorpayOrderId: razorpayOrder.id,
       amount: totals.amountInPaise,
       currency: totals.currency,
+      termsVersion: payload.policyVersion,
+      termsAcceptedAt: new Date().toISOString(),
     })
 
     return NextResponse.json({
@@ -41,7 +43,7 @@ export async function POST(request: Request) {
     })
   } catch (error) {
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'Unable to create checkout order' },
+      { error: error instanceof ZodError ? 'Review your bag and agree to the current order terms before continuing.' : error instanceof Error ? error.message : 'Unable to create checkout order' },
       { status: 400 },
     )
   }

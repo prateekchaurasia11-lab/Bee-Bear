@@ -1,9 +1,11 @@
 import type { Metadata } from 'next'
-import { Cormorant_Garamond, Inter } from 'next/font/google'
+import { Cormorant_Garamond, Fredoka, Inter } from 'next/font/google'
 import './globals.css'
+import './showroom.css'
+import './mobile.css'
 import { SiteFooter } from '@/components/site-footer'
 import { SiteHeader } from '@/components/site-header'
-import { RazorpayScript } from '@/components/razorpay-script'
+import { ScrollProgress } from '@/components/scroll-reveal'
 
 const serif = Cormorant_Garamond({
   subsets: ['latin'],
@@ -17,16 +19,21 @@ const sans = Inter({
   variable: '--font-sans',
 })
 
+const display = Fredoka({ subsets: ['latin'], weight: ['400', '500', '600', '700'], variable: '--font-display' })
+
 export const metadata: Metadata = {
-  title: 'Bee & Bear | Baby Pant Diapers',
-  description: 'Bee & Bear baby pant diapers. Small and Medium, 75-piece pack. For your little one.',
+  metadataBase: new URL('https://www.beebear.in'),
+  title: 'Bee & Bear | Baby Care Essentials',
+  description: 'Explore the Bee & Bear client preview: sample diapers by size and type, baby wipes and cotton buds.',
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en-IN" className={`${serif.variable} ${sans.variable}`}>
+    <html lang="en-IN" className={`${serif.variable} ${sans.variable} ${display.variable}`}>
       <body>
-        <RazorpayScript />
+        <ScrollProgress />
+        <a className="skip-link" href="#main-content">Skip to main content</a>
+        <div className="shop-preview-bar">Client preview · Sample products &amp; prices · Test checkout only</div>
         <SiteHeader />
         {children}
         <SiteFooter />

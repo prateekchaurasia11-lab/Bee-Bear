@@ -1,16 +1,14 @@
-# Product photos
+# Original product assets
 
-Place the supplied original images here without changing their contents:
+All files are copies of the original artwork supplied by the owner:
+- diapers-pack.jpg <- images/IMG_0296.JPG.jpeg (1220 x 1447)
+- diapers-features.png <- images/IMG_0117.PNG (1024 x 1024)
+- diapers-lifestyle.png <- images/IMG_0112.PNG (1024 x 1024)
 
-- diapers-pack.png: clean pack photograph on white
-- diapers-features.png: turquoise features photograph
-- diapers-value.png: 75-piece pack next to a mug
-- diapers-guide.png: advantages, uses, and storage guide
-- diapers-everyday.png: everyday baby-care collage
+The catalogue, homepage, bag and gallery use these originals. Product photos and
+the feature collage use contain sizing so the full pack/printed content stays visible.
+The pack photo shows Medium; a Small pack photograph has not been supplied.
 
-The conversation images were not available as local files during implementation.
-The gallery displays a neutral placeholder until the original files are supplied.
-
-The catalogue uses an authorized sample price of INR 799 and demo inventory of 100.
-Confirm both before accepting real orders. Medium packaging shows 7-12 kg;
-the Small weight range still needs confirmation.
+Both Small and Medium are available in the demo. INR 799 is a temporary price
+for either size. Inventory remains demo data. Confirm Small's weight range,
+prices and real stock before accepting live orders.

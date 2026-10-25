@@ -2,22 +2,14 @@ import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
   distDir: process.env.BEE_BEAR_NETLIFY_BUILD === '1' ? '.next-netlify' : '.next',
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
-      },
-    ],
-  },
   async headers() {
     const isDev = process.env.NODE_ENV === 'development'
     const csp = [
       "default-src 'self'",
       `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''} https://checkout.razorpay.com`,
-      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-      "img-src 'self' data: blob: https://images.unsplash.com https://*.razorpay.com",
-      "font-src 'self' https://fonts.gstatic.com",
+      "style-src 'self' 'unsafe-inline'",
+      "img-src 'self' data: blob: https://*.razorpay.com",
+      "font-src 'self'",
       `connect-src 'self'${isDev ? ' ws: wss:' : ''} https://api.razorpay.com`,
       "frame-src https://api.razorpay.com https://checkout.razorpay.com",
       "object-src 'none'",
@@ -35,7 +27,7 @@ const nextConfig: NextConfig = {
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'X-Frame-Options', value: 'DENY' },
-          { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=(self), payment=(self)' },
+          { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=(), payment=(self)' },
         ],
       },
     ]

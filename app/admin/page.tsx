@@ -3,7 +3,7 @@ import { adminCards, adminChecklist } from '@/lib/admin'
 
 export default function AdminPage() {
   return (
-    <main className="content-page">
+    <main id="main-content" tabIndex={-1} className="content-page">
       <section>
         <span className="eyebrow">Protected admin dashboard</span>
         <h1>Store operations command centre.</h1>

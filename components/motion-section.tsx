@@ -3,24 +3,16 @@
 import { motion, useReducedMotion } from 'motion/react'
 import type { ReactNode } from 'react'
 
-type MotionSectionProps = {
-  children: ReactNode
-  className?: string
-  delay?: number
-}
+type MotionSectionProps = { children: ReactNode; className?: string; delay?: number; id?: string }
 
-export function MotionSection({ children, className, delay = 0 }: MotionSectionProps) {
-  const reduceMotion = useReducedMotion()
-
+export function MotionSection({ children, className, delay = 0, id }: MotionSectionProps) {
+  const reduced = useReducedMotion()
   return (
-    <motion.section
-      className={className}
-      initial={reduceMotion ? false : { opacity: 0, y: 22 }}
-      whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1], delay }}
-    >
-      {children}
-    </motion.section>
+    <motion.section data-scroll-reveal id={id} className={className}
+      initial={reduced ? false : { opacity: 0, y: 38 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: .1, margin: '0px 0px -24px 0px' }}
+      transition={{ duration: .8, ease: [.22, 1, .36, 1], delay: reduced ? 0 : delay }}
+    >{children}</motion.section>
   )
 }

@@ -6,23 +6,24 @@ An Indian baby-care storefront built with Next.js, React, and TypeScript. The or
 
 ## Current Catalogue
 
-One product: **Baby Pant Diapers, 75-piece pack**.
+The client showroom contains **23 demo product cards**: 18 diaper sizes/types across Everyday, Premium, Overnight and Tape ranges, three wipes packs and two cotton-bud packs. Each card is a separate product/size with a dummy price. Original Everyday Small and Medium 75-piece packs retain INR 799 temporary pricing.
 
-- Sizes: Small and Medium.
-- Sample price: INR 799 for either size.
-- Medium packaging indicates 7-12 kg; the Small weight range needs confirmation.
-- Inventory is demo data.
-- Original product photos and the supplied logo are not yet available as local project files. Product image slots show placeholders; the homepage uses lifestyle photographs.
+The five-banner hero automatically slides every five seconds with a one-second transition. Controls include previous/next, banner selectors, pause/play and reduced-motion support. The shop supports search, category/type/size filtering, sorting, wishlist and add-to-bag.
+
+Original client photos and the logo are retained. Additional product packaging is AI-generated concept artwork. This is a test storefront, not a confirmed live range. See [Showroom update](SHOWROOM_UPDATE.md) and [asset prompts](public/products/DEMO_ASSETS.md).
 
 ## Features
 
 - Responsive homepage, catalogue, and product detail pages.
 - Size and quantity selection, shopping bag, and locally saved wishlist.
-- INR totals and Indian checkout-address validation with Zod.
+- INR totals and strict test-checkout validation with explicit terms agreement.
 - Razorpay test-mode order, verification, and webhook API routes.
 - Motion for React animations with reduced-motion support.
 - Prisma PostgreSQL schema and seed script.
-- Account, orders, admin, contact, and policy page scaffolds.
+- Dedicated privacy, terms, refund and cookie pages, with device-data controls.
+- Accessible modal navigation, skip links, stronger contrast and responsive layouts.
+- Guest shopping and direct email support; unconnected personal-data forms removed.
+- Example orders and admin page scaffolds.
 - Security headers and development-specific Content Security Policy.
 
 ## Run Locally
@@ -49,7 +50,7 @@ npm run test
 npm run build
 ```
 
-The tests cover the single-product catalogue, both size variants, INR totals, Indian PIN validation, Razorpay signature verification, and development versus production CSP.
+Eight tests cover the separate demo catalogue records, per-card variant pricing, mixed-cart totals, INR/PIN validation, Razorpay signatures, CSP and consent/data minimisation.
 
 ## Netlify
 
@@ -79,6 +80,12 @@ npm run seed
 ```
 
 See [Deployment Guide](DEPLOYMENT.md) and [Security Notes](SECURITY.md).
+
+## Privacy and Accessibility
+
+Business name: Bee & Bear. Support/privacy contact: prateekchaurasia11@gmail.com.
+
+Checkout is test-only and does not request real contact or delivery details. Razorpay loads only after the visitor chooses to open checkout and agrees to the current order terms. Optional marketing/tracking is not active. Read [the audit](THIRD_PARTY_AUDIT.md) for third-party findings, verification limits and the seller/refund details still required before live sales.
 
 ## Implementation Status
 

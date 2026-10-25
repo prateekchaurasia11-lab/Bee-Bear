@@ -1,11 +1,22 @@
-import { ProductCard } from '@/components/product-card'
+import { Catalogue } from '@/components/catalogue'
 import { products } from '@/lib/products'
 
-export default function ProductsPage() {
+export const metadata = { title: 'Baby care collection | Bee & Bear' }
+
+export default async function ProductsPage({ searchParams }: { searchParams: Promise<{ category?: string; type?: string }> }) {
+  const params = await searchParams
+  const category = typeof params.category === 'string' ? params.category : 'All'
+  const type = typeof params.type === 'string' ? params.type : 'All'
   return (
-    <main>
-      <header className="page-hero"><span className="eyebrow">Shop Bee &amp; Bear</span><h1>Baby diapers</h1><p>Everyday comfort for your little one. Small and Medium pant diapers in a 75-piece pack.</p></header>
-      <section className="section catalogue-section" aria-label="Products"><p className="catalogue-count">1 product</p><div className="product-grid single-product-grid">{products.map((product) => <ProductCard key={product.id} product={product} />)}</div></section>
+    <main id="main-content" tabIndex={-1} className="showroom-shop">
+      <header className="page-hero showroom-shop-heading">
+        <span className="eyebrow">Bee &amp; Bear · The little essentials</span>
+        <h1>Find their everyday favourites.</h1>
+        <p>Diapers by size and type, wipes and cotton buds. Explore our sample collection with dummy prices.</p>
+      </header>
+      <section className="section catalogue-section" aria-label="Shop products">
+        <Catalogue key={category + type} items={products} initialCategory={category} initialType={type} />
+      </section>
     </main>
   )
 }

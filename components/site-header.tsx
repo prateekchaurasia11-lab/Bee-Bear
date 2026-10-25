@@ -1,116 +1,56 @@
 'use client'
-
 import Link from 'next/link'
+import Image from 'next/image'
+import { brandLogo } from '@/lib/site-assets'
 import { Heart, Menu, Search, ShoppingBag, UserRound, X } from 'lucide-react'
-import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { usePathname } from 'next/navigation'
 import { readCart } from './store-actions'
 
 const navItems = [
   { href: '/', label: 'Home' },
   { href: '/products', label: 'Shop' },
-  { href: '/about', label: 'About' },
-  { href: '/contact', label: 'Support' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/quality', label: 'Our Quality' },
+  { href: '/contact', label: 'Contact Us' },
+  { href: '/about', label: 'About Us' },
 ]
-
 export function SiteHeader() {
-  const [open, setOpen] = useState(false)
   const [cartCount, setCartCount] = useState(0)
-  const reduceMotion = useReducedMotion()
-
+  const [open, setOpen] = useState(false)
+  const dialog = useRef<HTMLDialogElement>(null)
+  const opener = useRef<HTMLButtonElement>(null)
+  const pathname = usePathname()
+  const isActive = (href: string) => pathname === href || (href !== '/' && pathname.startsWith(href + '/'))
+  function closeMenu() { dialog.current?.close() }
   useEffect(() => {
-    const syncCount = () => {
-      const parsed = readCart()
-      setCartCount(parsed.reduce((sum, item) => sum + Number(item.quantity || 0), 0))
-    }
-
+    const syncCount = () => setCartCount(readCart().reduce((sum, item) => sum + item.quantity, 0))
     syncCount()
     window.addEventListener('storage', syncCount)
     window.addEventListener('bb-cart-updated', syncCount)
-    return () => {
-      window.removeEventListener('storage', syncCount)
-      window.removeEventListener('bb-cart-updated', syncCount)
-    }
+    return () => { window.removeEventListener('storage', syncCount); window.removeEventListener('bb-cart-updated', syncCount) }
   }, [])
-
-  return (
-    <header className="site-header">
-      <Link href="/" className="brand-lockup" aria-label="Bee and Bear home">
-        <span className="brand-mark">B&amp;B</span>
-        <span>
-          <strong>Bee &amp; Bear</strong>
-          <small>for your little one</small>
-        </span>
-      </Link>
-
-      <nav className="desktop-nav" aria-label="Main navigation">
-        {navItems.map((item) => (
-          <Link key={item.href} href={item.href}>
-            {item.label}
-          </Link>
-        ))}
-      </nav>
-
-      <div className="header-actions">
-        <Link href="/products" aria-label="Browse products" title="Browse products" className="icon-button hide-mobile">
-          <Search size={18} />
-        </Link>
-        <Link href="/wishlist" aria-label="Wishlist" className="icon-button">
-          <Heart size={18} />
-        </Link>
-        <Link href="/account" aria-label="Account" className="icon-button hide-mobile">
-          <UserRound size={18} />
-        </Link>
-        <Link href="/cart" aria-label="Shopping bag" className="icon-button bag-button">
-          <ShoppingBag size={18} />
-          <AnimatePresence mode="popLayout">
-            {cartCount > 0 && (
-              <motion.span
-                key={cartCount}
-                initial={reduceMotion ? false : { scale: 0.65, y: 6 }}
-                animate={reduceMotion ? undefined : { scale: 1, y: 0 }}
-                exit={reduceMotion ? undefined : { scale: 0.65, y: -6, opacity: 0 }}
-              >
-                {cartCount}
-              </motion.span>
-            )}
-          </AnimatePresence>
-        </Link>
-        <button className="icon-button mobile-menu-button" aria-label="Open navigation" onClick={() => setOpen(true)}>
-          <Menu size={20} />
-        </button>
-      </div>
-
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            className="mobile-menu"
-            initial={reduceMotion ? false : { opacity: 0 }}
-            animate={reduceMotion ? undefined : { opacity: 1 }}
-            exit={reduceMotion ? undefined : { opacity: 0 }}
-          >
-            <motion.div
-              className="mobile-menu-panel"
-              initial={reduceMotion ? false : { x: '100%' }}
-              animate={reduceMotion ? undefined : { x: 0 }}
-              exit={reduceMotion ? undefined : { x: '100%' }}
-              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <button className="icon-button close-button" aria-label="Close navigation" onClick={() => setOpen(false)}>
-                <X size={20} />
-              </button>
-              {navItems.map((item) => (
-                <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>
-                  {item.label}
-                </Link>
-              ))}
-              <Link href="/login" onClick={() => setOpen(false)}>
-                Login
-              </Link>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </header>
-  )
+  useEffect(() => {
+    if (!open) return
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    const media = window.matchMedia('(min-width: 981px)')
+    const onResize = () => { if (media.matches) dialog.current?.close() }
+    media.addEventListener('change', onResize)
+    return () => { document.body.style.overflow = previousOverflow; media.removeEventListener('change', onResize) }
+  }, [open])
+  return <header className="site-header">
+    <Link href="/" className="brand-lockup brand-with-logo" aria-label="Bee and Bear home"><Image src={brandLogo.src} alt={brandLogo.alt} width={brandLogo.width} height={brandLogo.height} sizes="(max-width: 700px) 60px, 92px" loading="eager" className="brand-logo" /></Link>
+    <nav className="desktop-nav" aria-label="Main navigation">{navItems.map(item => <Link key={item.href} href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>{item.label}</Link>)}</nav>
+    <div className="header-actions">
+      <Link href="/products" aria-label="Browse products" className="icon-button hide-mobile"><Search size={18} /></Link>
+      <Link href="/wishlist" aria-label="Wishlist" className="icon-button"><Heart size={18} /></Link>
+      <Link href="/account" aria-label="Account" className="icon-button hide-mobile"><UserRound size={18} /></Link>
+      <Link href="/cart" aria-label={`Shopping bag, ${cartCount} items`} className="icon-button bag-button"><ShoppingBag size={18} />{cartCount > 0 && <span aria-hidden="true">{cartCount}</span>}</Link>
+      <button ref={opener} type="button" className="icon-button mobile-menu-button" aria-label="Open navigation" aria-haspopup="dialog" aria-controls="mobile-navigation" aria-expanded={open} onClick={() => { dialog.current?.showModal(); setOpen(true) }}><Menu size={20} /></button>
+    </div>
+    <dialog ref={dialog} id="mobile-navigation" className="mobile-menu-dialog" aria-label="Navigation" onClose={() => { setOpen(false); opener.current?.focus() }} onClick={event => { if (event.target === dialog.current) closeMenu() }}>
+      <div className="mobile-menu-panel"><div className="mobile-menu-top"><span>Bee &amp; Bear</span><button type="button" autoFocus className="icon-button close-button" aria-label="Close navigation" onClick={closeMenu}><X size={20} /></button></div><nav aria-label="Mobile navigation">{navItems.map(item => <Link key={item.href} href={item.href} aria-current={isActive(item.href) ? 'page' : undefined} onClick={closeMenu}>{item.label}</Link>)}</nav></div>
+    </dialog>
+  </header>
 }

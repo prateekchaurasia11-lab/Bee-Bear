@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { clsx } from 'clsx'
-import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from 'react'
+import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode, Ref } from 'react'
 
 const variants = {
   primary: 'bg-[var(--cocoa)] text-white border-[var(--cocoa)] hover:bg-[var(--ink)] hover:border-[var(--ink)]',
@@ -12,6 +12,7 @@ const baseClass =
   'inline-flex min-h-11 items-center justify-center gap-2 rounded-md border px-5 py-2 text-sm text-center font-semibold tracking-[0] transition duration-200 hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--honey)] disabled:pointer-events-none disabled:opacity-50'
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+  ref?: Ref<HTMLButtonElement>
   variant?: keyof typeof variants
 }
 

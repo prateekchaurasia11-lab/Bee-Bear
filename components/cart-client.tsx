@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useEffect, useMemo, useState } from 'react'
 import { calculateTotals } from '@/lib/checkout'
-import { formatInr, products } from '@/lib/products'
+import { catalogueIsPreview, formatInr, products } from '@/lib/products'
 import { Button, LinkButton } from './ui/button'
 import { readCart } from './store-actions'
 
@@ -39,7 +39,7 @@ export function CartClient() {
     return (
       <div className="empty-panel">
         <h1>Your shopping bag is waiting.</h1>
-        <p>Discover our 75-piece pack of baby pant diapers.</p>
+        <p>Explore the sample diapers, wipes and cotton buds collection.</p>
         <LinkButton href="/products">Explore products</LinkButton>
       </div>
     )
@@ -66,11 +66,11 @@ export function CartClient() {
                 </span>
               </div>
               <div className="quantity-stepper" aria-label={`Quantity for ${product.name}`}>
-                <Button variant="ghost" onClick={() => updateQuantity(index, item.quantity - 1)}>
+                <Button variant="ghost" aria-label={item.quantity === 1 ? `Remove ${product.name} from bag` : `Decrease quantity of ${product.name}`} onClick={() => updateQuantity(index, item.quantity - 1)}>
                   -
                 </Button>
-                <strong>{item.quantity}</strong>
-                <Button variant="ghost" disabled={item.quantity >= Math.min(10, product.inventory)} onClick={() => updateQuantity(index, item.quantity + 1)}>
+                <output aria-live="polite">{item.quantity}</output>
+                <Button variant="ghost" aria-label={`Increase quantity of ${product.name}`} disabled={item.quantity >= Math.min(10, product.inventory)} onClick={() => updateQuantity(index, item.quantity + 1)}>
                   +
                 </Button>
               </div>
@@ -82,6 +82,7 @@ export function CartClient() {
 
       <aside className="summary-panel">
         <p className="eyebrow">Order summary</p>
+        {catalogueIsPreview && <p className="preview-price">Prices and stock are placeholders for development. No live orders are accepted.</p>}
         <div>
           <span>Subtotal</span>
           <strong>{formatInr(totals?.subtotal || 0)}</strong>
@@ -98,7 +99,7 @@ export function CartClient() {
           <span>Total</span>
           <strong>{formatInr(totals?.total || 0)}</strong>
         </div>
-        <LinkButton href="/checkout">Checkout securely</LinkButton>
+        <LinkButton href="/checkout">Continue to test checkout</LinkButton>
       </aside>
     </div>
   )

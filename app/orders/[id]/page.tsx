@@ -2,17 +2,16 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ id
   const { id } = await params
 
   return (
-    <main className="content-page">
+    <main id="main-content" tabIndex={-1} className="content-page">
       <section>
-        <span className="eyebrow">Order detail</span>
+        <span className="eyebrow">Example order · Preview only</span>
         <h1>{id}</h1>
-        <p>Timeline: created, payment pending, paid/captured, packed, shipped, delivered, refunded if applicable.</p>
+        <p>This is an example tracking page. No actual parcel or purchase is associated with this preview.</p>
       </section>
       <section>
-        <h2>Safety notes</h2>
+        <h2>Questions about a payment?</h2>
         <p>
-          Do not fulfill from checkout success alone. Match internal order id, Razorpay order id, payment id,
-          captured status, webhook event id, and inventory transaction before dispatch.
+          Email prateekchaurasia11@gmail.com with your payment reference and a short description of the issue. Never send a password, card number, OTP or UPI PIN.
         </p>
       </section>
     </main>

@@ -1,0 +1,11 @@
+import Link from 'next/link'
+import { PolicyPage } from '@/components/policy-page'
+export const metadata = { title: 'Refund policy | Bee & Bear' }
+export default function RefundPage() {
+  return <PolicyPage title="Refund policy" intro="Bee & Bear currently runs test payments only. No real purchase is made and no parcel is dispatched through this checkout.">
+    <section><h2>Test payments and cancellations</h2><p>You can close the Razorpay test window or leave checkout without completing it. Test payments do not transfer real money, so there is no monetary refund for a test transaction. Closing checkout does not empty your shopping bag.</p><p>If you see a real charge you believe relates to this site, contact us with the date, amount and payment reference, and contact your payment provider. Do not send full card details, OTPs or PINs.</p></section>
+    <section><h2>Damaged, incorrect or defective goods</h2><p>For any product concern, contact Bee &amp; Bear with an order reference and a description of the issue. Share a photograph of the product or packaging only if it helps explain the issue; do not include a child's image or personal documents. Applicable rights concerning defective, incorrect or misdescribed goods are not limited by a hygiene restriction.</p></section>
+    <section><h2>Hygiene and change-of-mind returns</h2><p>Diapers are hygiene products. A live return policy needs to distinguish unopened packs from opened or used products and explain any exclusions. Change-of-mind eligibility, the return window, return-shipping responsibility and refund processing times have not yet been confirmed. Live orders are not enabled while these details are pending.</p></section>
+    <section><h2>Before accepting live orders</h2><p>We will publish confirmed cancellation steps, return eligibility, request deadlines, collection or return arrangements, refund method and processing time before accepting live orders. A support request does not itself confirm return eligibility. No statement here limits a remedy available under applicable consumer law.</p><p>For delivery fee calculations, see <Link href="/policies#shipping">Shipping information</Link>.</p></section>
+  </PolicyPage>
+}

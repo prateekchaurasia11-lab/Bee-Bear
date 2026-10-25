@@ -1,32 +1,12 @@
+import Link from 'next/link'
+import { policyLinks } from '@/lib/policies'
+export const metadata = { title: 'Policies and shipping | Bee & Bear' }
 export default function PoliciesPage() {
-  return (
-    <main className="content-page">
-      <section>
-        <span className="eyebrow">Policies</span>
-        <h1>Shipping, returns, privacy, and terms.</h1>
-        <div className="policy-tabs">
-          <a href="#shipping">Shipping</a>
-          <a href="#returns">Returns</a>
-          <a href="#privacy">Privacy</a>
-          <a href="#terms">Terms</a>
-        </div>
-      </section>
-      <section id="shipping">
-        <h2>Shipping</h2>
-        <p>Shipping zones, fees, delivery estimates, and providers are configurable. PIN-code validation is required server-side.</p>
-      </section>
-      <section id="returns">
-        <h2>Returns</h2>
-        <p>Returns require hygiene-aware review for baby products. Final policy text needs legal review before launch.</p>
-      </section>
-      <section id="privacy">
-        <h2>Privacy</h2>
-        <p>Collect only needed customer, address, consent, and order data. Do not store card CVVs, UPI PINs, or raw payment data.</p>
-      </section>
-      <section id="terms">
-        <h2>Terms</h2>
-        <p>Use this as a legal-review checklist, not a finished legal document.</p>
-      </section>
-    </main>
-  )
+  return <main id="main-content" tabIndex={-1} className="content-page policy-page">
+    <section><span className="eyebrow">Bee &amp; Bear</span><h1>Policies and shipping</h1><p>Read how the store works and manage your choices.</p><nav className="policy-tabs" aria-label="Policies">{policyLinks.map(link => <Link key={link.href} href={link.href}>{link.label}</Link>)}</nav></section>
+    <section id="shipping"><h2>Shipping information</h2><p>This storefront currently supports test payments only; no parcels are dispatched. The test bag calculates ₹149 shipping for a subtotal below ₹4,999 and free shipping from ₹4,999. Taxes are included and the full total is shown before payment.</p><p>Live delivery areas, dispatch times, delivery estimates and carrier details will be published before live orders open.</p></section>
+    <section id="returns"><h2>Returns and refunds</h2><p><Link href="/refund-policy">Read the Refund policy</Link> for test payments, product concerns and the live-sale details still to be confirmed.</p></section>
+    <section id="privacy"><h2>Privacy and device data</h2><p><Link href="/privacy-policy">Read the Privacy policy</Link> or <Link href="/cookie-policy">manage your browser storage</Link>.</p></section>
+    <section id="terms"><h2>Terms</h2><p><Link href="/terms-of-service">Read the Terms of service</Link> before starting a test payment.</p></section>
+  </main>
 }

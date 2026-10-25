@@ -7,10 +7,10 @@ const orders = [
 
 export default function OrdersPage() {
   return (
-    <main className="content-page">
+    <main id="main-content" tabIndex={-1} className="content-page">
       <section>
-        <span className="eyebrow">My orders</span>
-        <h1>Order tracking.</h1>
+        <span className="eyebrow">Preview only</span>
+        <h1>Example order tracking.</h1>
         <p>Demo orders show the expected tracking states. Production fulfillment should follow verified captured payment events.</p>
       </section>
       <section className="orders-grid">

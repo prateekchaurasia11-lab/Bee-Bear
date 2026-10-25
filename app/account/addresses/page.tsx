@@ -1,24 +1,4 @@
-import { Button } from '@/components/ui/button'
-
+import { LinkButton } from '@/components/ui/button'
 export default function AddressesPage() {
-  return (
-    <main className="content-page">
-      <section>
-        <span className="eyebrow">Saved addresses</span>
-        <h1>Delivery addresses.</h1>
-        <form className="form-grid">
-          <input placeholder="Full name" />
-          <input placeholder="Mobile number" />
-          <input placeholder="House / flat number" />
-          <input placeholder="Building / apartment" />
-          <input placeholder="Street / area" />
-          <input placeholder="Landmark" />
-          <input placeholder="City" />
-          <input placeholder="State" />
-          <input placeholder="PIN code" />
-          <Button type="submit">Save address</Button>
-        </form>
-      </section>
-    </main>
-  )
+  return <main id="main-content" tabIndex={-1} className="content-page"><section><span className="eyebrow">Delivery addresses</span><h1>No saved address needed.</h1><p>This test storefront does not dispatch parcels or save delivery addresses. Please do not submit a real address.</p><LinkButton href="/products">Continue shopping</LinkButton></section></main>
 }

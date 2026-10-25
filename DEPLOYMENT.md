@@ -1,28 +1,41 @@
 # Deployment Guide
 
-## Netlify
+## Latest deployment - 26 October 2026
 
 Project: https://app.netlify.com/projects/bee-and-bear-prateek
-
 Website: https://bee-and-bear-prateek.netlify.app
+Latest deployment: https://app.netlify.com/projects/bee-and-bear-prateek/deploys/6ade576586b6416d3980d8d1
+Deployment-specific URL: https://6ade576586b6416d3980d8d1--bee-and-bear-prateek.netlify.app
 
-Production deployment completed successfully. Netlify enabled team-login protection
-on this new project by default, so unauthenticated visitors currently receive HTTP 401.
-Changing this site's visitor access to public requires the owner's explicit approval.
+The existing site now includes the six-link navigation (Home, Shop, Blog, Our Quality, Contact Us, About Us), working Blog/Our Quality pages, scroll entrances and a reading-progress bar, plus a six-banner animated showroom and 23 separate demo product cards,
+with a whole-collection banner, supplied logo/photos, four matching product-in-scene lifestyle photographs, an animated navy wave/sketch footer, dedicated policies,
+privacy/consent changes, accessibility and a verified phone layout for the slideshow, catalogue, navigation and checkout. Netlify CLI
+completed the production build and deploy successfully.
 
-Deployment log: https://app.netlify.com/projects/bee-and-bear-prateek/deploys/6ac76958c7939eb53f22411d
+The hosted URL returned HTTP 401 on verification. Existing Netlify login
+protection was preserved. This update did not change the site's audience,
+domain/DNS settings, or payment mode. The intended domain remains www.beebear.in;
+domain connection is a separate setup task.
+
+Next.js was patched from 16.4.0 to 16.4.1 and sharp resolves to 0.35.5. npm reported
+zero known vulnerabilities after installation. Eight automated tests, scoped
+ESLint and the Netlify build passed. Hosted visual/asset checks remain limited
+by existing login protection; local page and image checks passed.
+
+## Build and deploy
 
 `netlify.toml` sets `npm run build`, the `.next-netlify` publish directory, and Node 22.
-`BEE_BEAR_NETLIFY_BUILD=1` isolates deployment output from the running local dev server.
+`BEE_BEAR_NETLIFY_BUILD=1` isolates deployment output from the local dev server.
 Netlify's Next.js adapter handles App Router pages, API routes, and image optimization.
-Deploy from this folder with `netlify deploy --prod` after installing and logging into Netlify CLI.
-The local project link is stored in `.netlify/state.json`, which is excluded from Git.
+Deploy from this folder with `netlify deploy --prod` after authenticating with Netlify CLI.
+The existing site ID is 04dfd8ec-91ff-49fa-9974-1f4af6296c43, stored in ignored `.netlify/state.json`.
 
-This deployment uses the INR 799 sample price and demo inventory. Product photos
-have not been supplied as local files. Configure Razorpay test credentials in the
-Netlify environment before testing payment; no payment credentials were uploaded.
-The in-memory order store is not persistent across serverless function instances.
-Replace it with a database-backed store before relying on order processing.
+This is still a test storefront with a temporary INR 799 price and demo inventory.
+The original logo and three supplied photos are integrated locally.
+Payment-provider readiness, actual stock/prices, seller information, shipping
+coverage and return/refund terms remain pending. Only Razorpay test keys are
+accepted by the checkout API. The in-memory order store is not persistent
+across serverless instances and must be replaced before real commerce.
 
 ## Application Setup
 

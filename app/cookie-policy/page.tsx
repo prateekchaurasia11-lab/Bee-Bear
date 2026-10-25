@@ -1,0 +1,11 @@
+import { PolicyPage } from '@/components/policy-page'
+import { StorageControls } from '@/components/storage-controls'
+export const metadata = { title: 'Cookie policy | Bee & Bear' }
+export default function CookiePage() {
+  return <PolicyPage title="Cookie policy" intro="Here is what this site stores in your browser, why it is used and how to remove it. We do not use optional analytics or advertising trackers.">
+    <section><h2>Shopping features you choose</h2><p>Bee &amp; Bear uses local storage, rather than first-party tracking cookies, for two features you request. The entries remain on this browser until you clear them. They are not shared between devices.</p><dl className="storage-list"><dt>bb-cart</dt><dd>Product IDs, variants and quantities in your shopping bag. The bag is emptied after a verified test payment.</dd><dt>bb-wishlist</dt><dd>Product IDs you choose to save as favourites.</dd></dl><p>These entries do not contain names, email addresses, delivery addresses or payment credentials. Browsing does not require adding anything to either list.</p></section>
+    <section><h2>Razorpay and hosting</h2><p>Razorpay loads only after you choose to open test checkout. It may use cookies or similar storage for its payment and security functions under its own <a href="https://razorpay.com/privacy/">privacy policy</a>. Our controls below remove Bee &amp; Bear's bag and wishlist entries; your browser's site-data settings control provider storage. Hosting security may also use essential technical storage depending on the deployment.</p></section>
+    <section><h2>No optional tracking</h2><p>There are no advertising pixels or behavioural analytics SDKs in this site. We do not display an “accept all” banner for features that do not exist. If optional tracking is introduced, it must remain off until you choose it, with equally accessible accept and reject choices and a way to withdraw that choice.</p></section>
+    <section id="device-data"><h2>Manage data on this device</h2><p>Clearing the bag removes its items. Clearing the wishlist removes saved favourites. You can also delete site data or block storage through your browser settings; this may prevent the bag and wishlist from working.</p><StorageControls /></section>
+  </PolicyPage>
+}
